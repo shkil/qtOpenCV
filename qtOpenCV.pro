@@ -11,8 +11,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    placedetector.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    placedetector.h
 
 FORMS    += mainwindow.ui
+
+unix {
+   CONFIG += link_pkgconfig
+   PKGCONFIG += opencv
+}

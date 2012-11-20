@@ -1,5 +1,5 @@
 #include "placedetector.h"
 
-PlaceDetector::PlaceDetector()
+PlaceDetector::PlaceDetector(): x(0), y(0)
 {
 }
