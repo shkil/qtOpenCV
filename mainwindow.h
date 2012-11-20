@@ -27,6 +27,9 @@ private:
     // QT
     Ui::MainWindow *ui;
     QTimer *timer;
+    QImage *img;
+    int nImgWidth2;
+    int nImgHeight2;
 
     // OpenCV
     QPoint placePoint;

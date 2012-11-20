@@ -19,6 +19,9 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
+RESOURCES     = application.qrc \
+    application.qrc
+
 unix {
    CONFIG += link_pkgconfig
    PKGCONFIG += opencv
