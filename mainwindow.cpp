@@ -48,6 +48,13 @@ void MainWindow::paintEvent( QPaintEvent *event )
     int x, y;
 
     capture >> capImg;
+    detector.setImage(capImg);
+    //cv::Mat ss;
+    //capImg.copyTo(ss);
+
+    //cv::Rect myROI(10, 10, 100, 100);
+    //capImg = capImg(myROI);
+
     painter.drawImage(QPoint(0,0), QImage(capImg.data, capImg.cols, capImg.rows, capImg.step, QImage::Format_RGB888));
     if( !bShowObject )
         return;
