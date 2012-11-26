@@ -33,7 +33,6 @@ private:
 
     // OpenCV
     QPoint placePoint;
-    bool bShowObject;
     cv::VideoCapture capture;
     cv::Mat capImg;                 // image captured from camera
     PlaceDetector detector;         // detector of the place

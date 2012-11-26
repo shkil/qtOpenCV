@@ -13,8 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     capture(0),
-    placePoint(0,0),
-    bShowObject(false)
+    placePoint(0,0)
 {
     ui->setupUi(this);
 
@@ -22,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(50);
+    timer->start(100);
 
     // creating image
     img = new QImage(":/images/res/pikas.png");
@@ -48,6 +47,7 @@ void MainWindow::paintEvent( QPaintEvent *event )
     int x, y;
 
     capture >> capImg;
+    cv::flip(capImg, capImg, 1);
     detector.setImage(capImg);
     //cv::Mat ss;
     //capImg.copyTo(ss);
@@ -55,8 +55,10 @@ void MainWindow::paintEvent( QPaintEvent *event )
     //cv::Rect myROI(10, 10, 100, 100);
     //capImg = capImg(myROI);
 
+    detector.preProcessImage(capImg);      //debug
+
     painter.drawImage(QPoint(0,0), QImage(capImg.data, capImg.cols, capImg.rows, capImg.step, QImage::Format_RGB888));
-    if( !bShowObject )
+    if( !detector.isShowObject() )
         return;
     detector.getPlace(x, y);
     painter.drawImage(QPoint(x-nImgWidth2,y-nImgHeight2), *img);
@@ -66,7 +68,6 @@ void MainWindow::mousePressEvent (QMouseEvent * event)
 {
     placePoint = event->pos();
     detector.setPlace(placePoint.x(), placePoint.y());
-    bShowObject = true;
 }
 
 
