@@ -23,14 +23,40 @@ protected:
     cv::Mat croppedImg;
     bool bShowObject;
 
-    std::vector<cv::KeyPoint> keypoints_to_find;
-    std::vector<cv::KeyPoint> keypoints;
+//    std::vector<cv::KeyPoint> keypoints_to_find;
+//    std::vector<cv::KeyPoint> keypoints;
     cv::Mat descriptors_to_find;
     cv::Mat descriptors;
 
-    std::vector< cv::DMatch > matches;
-    std::vector< cv::DMatch > good_matches;
+//  std::vector< cv::DMatch > matches;
+//  std::vector< cv::DMatch > good_matches;
 
+    std::vector<cv::Point2f> points_to_find;
+    std::vector<cv::Point2f> points;
+
+    cv::Point2f pPointExternal;
+
+    void detect(std::vector<cv::Point2f>& points, cv::Mat& descs);
+    void ratioTest(std::vector<std::vector<cv::DMatch> >& matches, float ratio);
+    void symmetryTest(std::vector<std::vector<cv::DMatch> >& matches1,
+                        std::vector<std::vector<cv::DMatch> >& matches2,
+                        std::vector<cv::DMatch>& symMatches);
+    void matchesToPoints(std::vector<cv::Point2f>& points1,
+                        std::vector<cv::Point2f>& points2,
+                        std::vector<cv::DMatch> matches,
+                        const std::vector<cv::Point2f>& pointsExternal,
+                        const std::vector<cv::Point2f>& pointsInternal);
+    void ransacTest(std::vector<cv::Point2f>& points1,
+                        std::vector<cv::Point2f>& points2,
+                        std::vector<cv::DMatch>& matches,
+                        std::vector<cv::DMatch>& ransacMatches,
+                        double distance,
+                        double confidence);
+    void transformPointHomography(std::vector<cv::Point2f>& external,
+                                    std::vector<cv::Point2f>& internal,
+                                    cv::Point2f pointExternal,
+                                    cv::Point2f& pointInternal,
+                                    double ransacThreshold);
 };
 
 #endif // PLACEDETECTOR_H

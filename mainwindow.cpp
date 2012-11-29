@@ -49,6 +49,7 @@ void MainWindow::paintEvent( QPaintEvent *event )
     capture >> capImg;
     cv::flip(capImg, capImg, 1);
     detector.setImage(capImg);
+    detector.processImage();
     //cv::Mat ss;
     //capImg.copyTo(ss);
 
