@@ -20,8 +20,8 @@ void PlaceDetector::preProcessImage(cv::Mat& img)
     detector.detect(img, keypoints);
 
     cv::drawKeypoints(img, keypoints, img);
-    cv::rectangle(img, cv::Rect(x-DETECT_WIDTH/2, y-DETECT_HEIGHT/2, DETECT_WIDTH, DETECT_HEIGHT),
-                  cv::Scalar(0x0, 0x0, 0, 0));
+    //cv::rectangle(img, cv::Rect(x-DETECT_WIDTH/2, y-DETECT_HEIGHT/2, DETECT_WIDTH, DETECT_HEIGHT),
+    //              cv::Scalar(0x0, 0x0, 0, 0));
 
 }
 
@@ -37,22 +37,6 @@ void PlaceDetector::detect(std::vector<cv::Point2f>& points, cv::Mat& descs)
 
 void PlaceDetector::setPlace(int x, int y)
 {
-//    this->x = x;
-//    this->y = y;
-
-//    // crop image to detect some place
-//    cv::Rect myROI(x-DETECT_WIDTH/2, y-DETECT_HEIGHT/2, DETECT_WIDTH, DETECT_HEIGHT);
-//    croppedImg = imgSrc(myROI);
-
-//    // Getting keypoints
-//    int minHessian = 400;
-//    cv::OrbFeatureDetector detector( minHessian );
-//    detector.detect( croppedImg, keypoints_to_find );
-//    qDebug() << "Keypoints of Place size: " << keypoints_to_find.size();
-
-//    // Extract descriptors
-//    cv::OrbDescriptorExtractor extractor;
-//    extractor.compute(croppedImg, keypoints_to_find, descriptors_to_find);
     detect(points_to_find, descriptors_to_find);
     pPointExternal.x = x;
     pPointExternal.y = y;

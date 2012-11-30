@@ -3,8 +3,12 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QMutex>
 
-#include <placedetector.h>
+//#include <placedetector.h>
+#include <opencv2/opencv.hpp>
+#include "cvarOpenCVFrameHolder.h"
+#include "cvarOpenCVDetector.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,7 +39,12 @@ private:
     QPoint placePoint;
     cv::VideoCapture capture;
     cv::Mat capImg;                 // image captured from camera
-    PlaceDetector detector;         // detector of the place
+    //PlaceDetector detector;         // detector of the place
+
+    cvarOpenCVFrameHolder frame;
+    cvarOpenCVDetector detector;
+    stDetectInfo detectInfo;
+    QMutex sync;
 };
 
 #endif // MAINWINDOW_H

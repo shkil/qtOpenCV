@@ -12,10 +12,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    placedetector.cpp
+    placedetector.cpp \
+    cvarOpenCVDetector.cpp \
+    cvarOpenCVFrameHolder.cpp
 
 HEADERS  += mainwindow.h \
-    placedetector.h
+    placedetector.h \
+    cvarOpenCVDetector.h \
+    cvarOpenCVFrameHolder.h \
+    cvarDetectInfo.h
 
 FORMS    += mainwindow.ui
 

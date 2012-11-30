@@ -48,27 +48,31 @@ void MainWindow::paintEvent( QPaintEvent *event )
 
     capture >> capImg;
     cv::flip(capImg, capImg, 1);
-    detector.setImage(capImg);
-    detector.processImage();
-    //cv::Mat ss;
-    //capImg.copyTo(ss);
+    //detector.setImage(capImg);
+    //detector.processImage();
+    sync.lock();
+    frame.update(capImg.data, capImg.cols, capImg.rows);
+    sync.unlock();
 
-    //cv::Rect myROI(10, 10, 100, 100);
-    //capImg = capImg(myROI);
-
-    detector.preProcessImage(capImg);      //debug
-
-    painter.drawImage(QPoint(0,0), QImage(capImg.data, capImg.cols, capImg.rows, capImg.step, QImage::Format_RGB888));
-    if( !detector.isShowObject() )
-        return;
-    detector.getPlace(x, y);
-    painter.drawImage(QPoint(x-nImgWidth2,y-nImgHeight2), *img);
+    //detector.preProcessImage(capImg);      //debug
+    cvtColor(capImg, capImg, CV_BGR2RGB);
+    painter.drawImage(QPoint(0,0), QImage(capImg.data, capImg.cols, capImg.rows, QImage::Format_RGB888));
+    //if( !detector.isShowObject() )
+    //    return;
+    //detector.getPlace(x, y);
+    if( detector.matchPlace(frame, detectInfo, x, y) )
+        painter.drawImage(QPoint(x-nImgWidth2,y-nImgHeight2), *img);
 }
 
 void MainWindow::mousePressEvent (QMouseEvent * event)
 {
     placePoint = event->pos();
-    detector.setPlace(placePoint.x(), placePoint.y());
+    //detector.setPlace(placePoint.x(), placePoint.y());
+    sync.lock();
+    detector.detectPlace(frame, detectInfo.keypoints, detectInfo.descriptors);
+    sync.unlock();
+    detectInfo.x = placePoint.x();
+    detectInfo.y = placePoint.y();
 }
 
 
