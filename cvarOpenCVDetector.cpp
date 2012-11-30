@@ -33,7 +33,7 @@ void cvarOpenCVDetector::detectPlace(const cvarOpenCVFrameHolder& frame, std::ve
     cv::OrbDescriptorExtractor orbExt(orbParams);
     orbExt.compute(frame.getFrame(), tmp_keypoints, aDesriptors);
 #else
-    orb.compute(frame.getFrame(), aKeypoints, aDesriptors);
+    orb.compute(frame.getFrame(), tmp_keypoints, aDesriptors);
 #endif
 }
 
