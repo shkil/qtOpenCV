@@ -56,6 +56,7 @@ void MainWindow::paintEvent( QPaintEvent *event )
 
     //detector.preProcessImage(capImg);      //debug
     cvtColor(capImg, capImg, CV_BGR2RGB);
+    //cv::imshow("Sss", capImg);
     painter.drawImage(QPoint(0,0), QImage(capImg.data, capImg.cols, capImg.rows, QImage::Format_RGB888));
     //if( !detector.isShowObject() )
     //    return;
@@ -69,7 +70,7 @@ void MainWindow::mousePressEvent (QMouseEvent * event)
     placePoint = event->pos();
     //detector.setPlace(placePoint.x(), placePoint.y());
     sync.lock();
-    detector.detectPlace(frame, detectInfo.keypoints, detectInfo.descriptors);
+    detector.detectPlace(frame, detectInfo.keypoints, detectInfo.descriptors, placePoint.x(), placePoint.y());
     sync.unlock();
     detectInfo.x = placePoint.x();
     detectInfo.y = placePoint.y();

@@ -18,7 +18,10 @@
 
 class cvarOpenCVDetector {
 public:
-    void detectPlace(const cvarOpenCVFrameHolder& frame, std::vector<cv::Point2f>& keypoints, cv::Mat& desriptors);
+    cvarOpenCVDetector();
+
+    //void detectPlace(const cvarOpenCVFrameHolder& frame, std::vector<cv::Point2f>& keypoints, cv::Mat& desriptors);
+    void detectPlace(const cvarOpenCVFrameHolder& frame, std::vector<cv::Point2f>& keypoints, cv::Mat& desriptors, int x, int y);
     bool matchPlace(const cvarOpenCVFrameHolder& frame, const stDetectInfo& info, int& x, int& y);
 
 private:
@@ -52,6 +55,15 @@ private:
                                   const cv::Point2f& pointExternal,
                                   cv::Point2f& pointInternal,
                                   double ransacThreshold);
+
+
+    // DEBUG
+    cv::Mat image_prev;
+    std::vector<cv::Point2f> features_prev, features_next;
+    cv::Point2f prev_point;
+
+    cv::Size winSize;
+    cv::TermCriteria termcrit;
 };
 
 #endif
